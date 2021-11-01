@@ -1,6 +1,11 @@
 # ML5 Image Classification Demo
 ## Featuring the Reader monad
 
+### [Check the demo here](https://ml5p5.netlify.app/)
+[![Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)](https://unlicense.org/)
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/92a2c252-7049-4437-aaf4-5dc82fe4ff63/deploy-status)](https://app.netlify.com/sites/ml5p5/deploys)
+
 ### What?
 This is a minimalistic appliation to demostrate the use of a Reader monad
 from [fp-ts](https://github.com/gcanti/fp-ts) to inject dependencies on a simple web application.
