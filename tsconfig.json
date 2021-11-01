@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "ES5",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "lib": ["es6", "dom", "WebWorker"],
+    "rootDir": "src",
+    "resolveJsonModule": true,
+    "moduleResolution": "Node"
+  },
+  "include": ["./src/**/*"]
+}

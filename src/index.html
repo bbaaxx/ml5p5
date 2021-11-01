@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Image Classification</title>
+    <script type="module" src="app.ts"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- HERO  -->
+      <section class="hero is-small is-link">
+        <div class="hero-body">
+          <p class="title">Image Classification</p>
+          <p class="subtitle">Featuring Monads</p>
+        </div>
+      </section>
+
+      <!-- IMAGE UPLOAD -->
+      <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+          <div class="box file-input-box">
+            <!-- SPINNER -->
+            <div id="model-spinner" class="content is-centered">
+              <p class="title is-5 has-text-centered">Initializing Model ...</p>
+
+              <progress class="progress is-large is-info" max="100"></progress>
+            </div>
+
+            <!-- FILE UPLOAD INPUT -->
+            <div
+              id="file-upload-form"
+              class="file is-boxed is-centered is-hidden"
+            >
+              <label for="file-upload-input" class="file-label">
+                <input
+                  id="file-upload-input"
+                  type="file"
+                  class="file-input"
+                  name="file-upload-input"
+                  accept="image/*"
+                />
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="gg-file-add"></i>
+                  </span>
+                  <span class="file-label">Select an image to upload</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS CARD -->
+      <div id="results-card" class="columns is-mobile is-centered is-hidden">
+        <div class="column is-half">
+          <div class="box">
+            <div class="card">
+              <div class="card-image">
+                <!-- IMAGE OUTPUT -->
+                <figure id="image-output" class="image is-400x400"></figure>
+              </div>
+
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="./images/robbie.png" alt="Robbie Says" />
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-4">Robbie's guess:</p>
+                    <p id="robbies-guess" class="subtitle is-6"></p>
+                  </div>
+                </div>
+
+                <!-- CLASSIFICATION OUTPUT -->
+                <div id="classify-output" class="content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
