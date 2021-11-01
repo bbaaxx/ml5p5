@@ -1,26 +1,22 @@
 {
   "name": "ml5p5",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "license": "Unlicense",
   "source": "src/index.html",
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "start": "http-server ./dist"
   },
   "dependencies": {
-    "@parcel/service-worker": "^2.0.0",
-    "bulma": "^0.9.3",
-    "css.gg": "^2.0.0",
-    "fp-ts": "^2.11.4",
-    "ml5": "^0.7.1",
-    "p5": "^1.4.0"
+    "fp-ts": "^2.11.5",
+    "http-server": "^14.0.0",
+    "ml5": "^0.7.1"
   },
   "devDependencies": {
-    "@parcel/transformer-image": "2.0.0-rc.0",
-    "@types/p5": "^1.3.1",
-    "browser-sync": "^2.27.5",
-    "parcel": "^2.0.0-rc.0"
+    "@parcel/transformer-image": "2.0.0",
+    "browser-sync": "^2.27.7",
+    "parcel": "^2.0.0"
   },
   "browserslist": "last 2 versions"
 }
