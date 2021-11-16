@@ -11,15 +11,22 @@ const guessCopy = [
   "Got it, it is a:",
 ];
 
-const controls: { [key: string]: HTMLElement } = {
-  fileInput: document.querySelector("#file-upload-input"),
-  imageOutput: document.querySelector("#image-output"),
-  resultsCard: document.querySelector("#results-card"),
-  robbiesGuess: document.querySelector("#robbies-guess"),
-  classifyOutput: document.querySelector("#classify-output"),
-  modelSpinner: document.querySelector("#model-spinner"),
-  fileUploadForm: document.querySelector("#file-upload-form"),
+const controlIds: { [key: string]: string } = {
+  fileInput: "#file-upload-input",
+  imageOutput: "#image-output",
+  resultsCard: "#results-card",
+  robbiesGuess: "#robbies-guess",
+  classifyOutput: "#classify-output",
+  modelSpinner: "#model-spinner",
+  fileUploadForm: "#file-upload-form",
 };
+
+const controls: { [key: string]: HTMLElement } = Object.fromEntries(
+  Object.entries(controlIds).map(([key, value]) => [
+    key,
+    document.querySelector(value),
+  ])
+);
 
 main(document)({
   controls,

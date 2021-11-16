@@ -14,9 +14,13 @@ const imageLoadHandler =
   (imageElement: HTMLImageElement): Reader<Dependencies, (e: Event) => void> =>
   ({ controls, guessCopy, document, hiddenClass, classifier }) =>
   (e: Event) => {
+    // create a list
     const list = document.createElement("ol");
     controls.classifyOutput.replaceChildren(list);
+
+    // get classifier results
     classifier.classify(e.target).then((results) => {
+      // map the results to the elements on the list
       results
         .map((r) => {
           const li = document.createElement("li");
@@ -25,19 +29,21 @@ const imageLoadHandler =
         })
         .forEach((e) => list.appendChild(e));
     });
+
+    // display the results card
     controls.robbiesGuess.replaceChildren(getGuessTitle(guessCopy));
     controls.imageOutput.replaceChildren(imageElement);
     controls.resultsCard.classList.remove(hiddenClass);
   };
 
-const fileChangeHandler = (
+const inputChangeHandler = (
   classifier: any
 ): Reader<Dependencies, (e: Event) => Promise<void>> =>
   pipe(
     ask<Dependencies>(),
     chain(
       (dependencies) =>
-        ({ controls, document, hiddenClass }) =>
+        ({ controls, document }) =>
         async (evt: HTMLInputEvent) => {
           const [targetFile] = Array.from(evt.target.files);
           if (targetFile) {
@@ -65,7 +71,7 @@ const main = (document: Document): Reader<Dependencies, Promise<void>> =>
       controls.fileUploadForm.classList.remove(hiddenClass);
       controls.fileInput.addEventListener(
         "change",
-        fileChangeHandler(classifier)({ ...dependencies, document })
+        inputChangeHandler(classifier)({ ...dependencies, document })
       );
     })
   );
