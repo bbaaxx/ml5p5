@@ -9,6 +9,9 @@
     "start": "http-server ./dist"
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "country-flag-icons": "^1.4.14",
+    "country-telephone-data": "^0.6.3",
     "fp-ts": "^2.11.5",
     "http-server": "^14.0.0",
     "ml5": "^0.7.1"

@@ -1,0 +1,102 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "interface Eq<A> {\n  readonly equals: (x: A, y: A) => boolean;\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> A programmer can make any type A a member of a given type class C by using an instance declaration that defines implementations of all of C's members for the particular type A.\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const eqNumber: Eq<number> = {\n  equals: (x, y) => x === y,\n};\n\n[eqNumber.equals(2, 2), eqNumber.equals(2, 3)];"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[33mtrue\u001b[39m,",
+                                "  \u001b[33mfalse\u001b[39m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Instances must satisfy the following laws:\n\n- Reflexivity: `equals(x, x) === true`, for all `x` in `A`\n  Symmetry: `equals(x, y) === equals(y, x)`, for all `x, y` in `A`\n- Transitivity: if `equals(x, y) === true` and `equals(y, z) === true`, then `equals(x, z) === true`, for all `x, y, z` in `A`\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// Check if a value is in an array\nfunction elem<A>(E: Eq<A>): (a: A, as: Array<A>) => boolean {\n  return (a, as) => as.some((item) => E.equals(item, a));\n}\n\n[\n  elem(eqNumber)(1, [1, 2, 3]), // true\n  elem(eqNumber)(4, [1, 2, 3]), // false\n];"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[33mtrue\u001b[39m,",
+                                "  \u001b[33mfalse\u001b[39m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "type Point = {\n  x: number;\n  y: number;\n};\n\nconst eqPointBasic: Eq<Point> = {\n  equals: (p1, p2) => p1.x === p2.x && p1.y === p2.y,\n};\n\n// optimized with reference first\nconst eqPointOptimized: Eq<Point> = {\n  equals: (p1, p2) => p1 === p2 || (p1.x === p2.x && p1.y === p2.y),\n};"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "import { struct } from 'fp-ts/Eq';\nimport { getEq } from 'fp-ts/Array';\n\nconst eqPoint: Eq<Point> = struct({\n  x: eqNumber,\n  y: eqNumber,\n});\ntype Vector = {\n  from: Point;\n  to: Point;\n};\nconst eqVector: Eq<Vector> = struct({\n  from: eqPoint,\n  to: eqPoint,\n});\nconst eqArrayOfPoints: Eq<Array<Point>> = getEq(eqPoint);\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "import { contramap } from 'fp-ts/Eq';\n\ntype User = {\n  userId: number;\n  name: string;\n};\n\n/** two users are equal if their `userId` field is equal */\nconst eqUser = contramap((user: User) => user.userId)(eqNumber);\n[\n  eqUser.equals({ userId: 1, name: 'Dudly' }, { userId: 1, name: 'Dudly Doo' }),\n  eqUser.equals({ userId: 1, name: 'Dudly' }, { userId: 2, name: 'Dudette' })\n]\n\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[33mtrue\u001b[39m,",
+                                "  \u001b[33mfalse\u001b[39m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

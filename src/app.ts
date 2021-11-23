@@ -11,7 +11,7 @@ const guessCopy = [
   "Got it, it is a:",
 ];
 
-const controlIds: { [key: string]: string } = {
+const controlIds: Record<string, string> = {
   fileInput: "#file-upload-input",
   imageOutput: "#image-output",
   resultsCard: "#results-card",

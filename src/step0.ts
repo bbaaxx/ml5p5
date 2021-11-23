@@ -4,6 +4,7 @@ import ml5 from "ml5";
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
+
 const hiddenClass = "is-hidden";
 
 const robbiesGuesses = [

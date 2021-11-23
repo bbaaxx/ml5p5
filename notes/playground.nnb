@@ -1,0 +1,49 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "import CL from 'country-telephone-data';\n\ntype CountryData = {\n  name: string;\n  iso2: string;\n  dialCode: string;\n  priority: number;\n  format: string;\n};\nconst allCountries = [...new Set(CL.allCountries)] as CountryData[];\n\nconst reducer = (acc: { [k: string]: CountryData[] }, curr: CountryData) => ({\n  ...acc,\n  [curr.dialCode]: [\n    ...(Array.isArray(acc[curr.dialCode]) ? acc[curr.dialCode] : []),\n    curr,\n  ],\n});\nallCountries.reduce(reducer, {})[\"47\"];\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  {",
+                                "    name: \u001b[32m'Bouvet Island'\u001b[39m,",
+                                "    iso2: \u001b[32m'bv'\u001b[39m,",
+                                "    dialCode: \u001b[32m'47'\u001b[39m,",
+                                "    priority: \u001b[33m0\u001b[39m",
+                                "  },",
+                                "  {",
+                                "    name: \u001b[32m'Norway (Norge)'\u001b[39m,",
+                                "    iso2: \u001b[32m'no'\u001b[39m,",
+                                "    dialCode: \u001b[32m'47'\u001b[39m,",
+                                "    priority: \u001b[33m0\u001b[39m,",
+                                "    format: \u001b[32m'+.. ... .. ...'\u001b[39m",
+                                "  },",
+                                "  {",
+                                "    name: \u001b[32m'Svalbard and Jan Mayen'\u001b[39m,",
+                                "    iso2: \u001b[32m'sj'\u001b[39m,",
+                                "    dialCode: \u001b[32m'47'\u001b[39m,",
+                                "    priority: \u001b[33m0\u001b[39m",
+                                "  }",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}

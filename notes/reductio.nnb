@@ -1,0 +1,22 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "const head = <T>([x, ...xs]: T[]): T => x;\nconst cons = <T>(x: T, xs: T[]): T[] => [x, ...xs];\n\nconst map =\n  <T, U>(f: (x: T) => U) =>\n  (xs: T[]): U[] =>\n    xs.reduceRight((acc, x) => cons(f(x), acc), []);\n\nconst filter =\n  <T>(p: (x: T) => boolean) =>\n  (xs: T[]): T[] =>\n    xs.reduceRight((acc, x) => (p(x) ? cons(x, acc) : acc), []);\n\nconst append =\n  <T>(x: T) =>\n  (xs: T[]): T[] =>\n    xs.reduceRight((acc, h) => cons(h, acc), [x]);\n\nconst concat =\n  <T>(xs: T[]) =>\n  (ys: T[]): T[] =>\n    xs.reduceRight((acc, h) => cons(h, acc), ys);\n\nconst reverse = <T>(xs: T[]): T[] =>\n  xs.reduceRight((acc, x) => append(x)(acc), []);\n\nconst len = (xs: any[]): number => xs.reduceRight((n, _) => n + 1, 0);\n\nconst reduce =\n  <T>(f: (z, x) => T, acc: T) =>\n  (xs: any[]): T =>\n    xs.reduceRight(\n      (accF, x) => (z) => accF(f(z, x)),\n      (x) => x\n    )(acc);\n\nconst elemAt = (n: number) => (xs: any[]) =>\n  head(reduce(([e, n], x) => [n == 0 ? x : e, n - 1], [undefined, n])(xs));\n\n//////////////////////////////////////////////////////////////////////////////////\n\nconst baseArray: number[] = [1, 2, 3, 4];\nconst addOne = (x: number) => x + 1;\nconst lt4 = (x: number) => x < 4;\n\nmap(addOne)(baseArray);\nfilter(lt4)(map(addOne)(baseArray));\nappend(4)(filter(lt4)(map(addOne)(baseArray)));\nconcat([0, 1])(append(4)(filter(lt4)(map(addOne)(baseArray))));\n// reverse(concat([0, 1])(append(4)(filter(lt4)(map(addOne)(baseArray)))));\n\nconst countdown = reverse(\n  concat([0, 1])(append(4)(filter(lt4)(map(addOne)(baseArray))))\n);\n\n// len(countdown);\nelemAt(3)(countdown);\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m1\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

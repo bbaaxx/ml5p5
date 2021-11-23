@@ -50,9 +50,11 @@ const inputChangeHandler = (
             controls.imageOutput.replaceChildren();
             const imageElement: HTMLImageElement =
               document.createElement("img");
+
             imageElement.setAttribute("src", URL.createObjectURL(targetFile));
             imageElement.setAttribute("width", "400");
             imageElement.setAttribute("height", "400");
+
             imageElement.addEventListener(
               "load",
               imageLoadHandler(imageElement)({ ...dependencies, classifier })
